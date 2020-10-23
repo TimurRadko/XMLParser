@@ -17,3 +17,4 @@ test-output/
 /.idea/
 .idea/
 /logs/
+/out/
