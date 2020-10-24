@@ -1,7 +1,5 @@
 package com.epam.xml.parser.model;
 
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -9,31 +7,45 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "medicines"
+        "medicine"
 })
 @XmlRootElement(name = "medicines")
 public class Medicines {
-    @XmlElementRef(name = "medicines", namespace = "http://com.epam.xml.parser.data/medicines",
-            type = JAXBElement.class)
-    private List<AbstractMedicine> medicines = new ArrayList<>();
 
-    public Medicines() {
+    @XmlElementRef(name = "medicine", namespace = "http://com.epam.xml.parser.data/medicines", type = JAXBElement.class)
+    private List<JAXBElement<? extends AbstractMedicine>> medicine;
+
+    public List<AbstractMedicine> getMedicines() {
+        return getMedicineFromJAXBElement();
     }
 
-    public void setMedicines(List<AbstractMedicine> medicines) {
-        this.medicines = medicines;
+    public void setListMedicines(List<AbstractMedicine> medicines) {
+        ObjectFactory factory = new ObjectFactory();
+        for (AbstractMedicine value : medicines) {
+            JAXBElement<? extends AbstractMedicine> volume = factory.createMedicine(value);
+            medicine = getMedicine();
+            medicine.add(volume);
+        }
     }
 
-    public boolean addList(AbstractMedicine medicine) {
-        return medicines.add(medicine);
+    private List<JAXBElement<? extends AbstractMedicine>> getMedicine() {
+        if (medicine == null) {
+            medicine = new ArrayList<>();
+        }
+        return this.medicine;
+    }
+
+    private List<AbstractMedicine> getMedicineFromJAXBElement() {
+        List<AbstractMedicine> medicines = new ArrayList<>();
+        for (JAXBElement<? extends AbstractMedicine> volume : medicine) {
+            AbstractMedicine medicine = volume.getValue();
+            medicines.add(medicine);
+        }
+        return medicines;
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (AbstractMedicine medicine : medicines) {
-            builder.append(medicine);
-        }
-        return builder.toString();
+        return getMedicineFromJAXBElement().toString();
     }
 }

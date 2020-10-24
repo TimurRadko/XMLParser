@@ -4,8 +4,8 @@ import com.epam.xml.parser.data.parser.DomParser;
 import com.epam.xml.parser.data.parser.JaxbParser;
 import com.epam.xml.parser.data.parser.SaxParser;
 import com.epam.xml.parser.data.validator.XmlValidator;
+import com.epam.xml.parser.model.AbstractMedicine;
 import com.epam.xml.parser.model.Medicines;
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
 
 import java.util.List;
 
@@ -18,15 +18,15 @@ public class Runner {
         validator.validate(FILE_NAME, SCHEMA_NAME);
 //        SaxParser parser = new SaxParser();
 //        List<AbstractMedicine> medicines = parser.parse(FILE_NAME);
-
+//
 //        DomParser parser = new DomParser();
 //        List<AbstractMedicine> medicines = parser.parse(FILE_NAME);
 
         JaxbParser parser = new JaxbParser();
-        parser.parse(FILE_NAME);
+        List<AbstractMedicine> medicines = parser.parse(FILE_NAME);
 
-//        Medicines pharmacy = new Medicines();
-//        pharmacy.setMedicines(medicines);
-//        System.out.println(pharmacy);
+        Medicines pharmacy = new Medicines();
+        pharmacy.setListMedicines(medicines);
+        System.out.println(pharmacy);
     }
 }

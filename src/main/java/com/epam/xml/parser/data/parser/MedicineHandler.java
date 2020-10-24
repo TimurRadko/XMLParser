@@ -1,8 +1,8 @@
 package com.epam.xml.parser.data.parser;
 
-import com.epam.xml.parser.model.medicine.LiquidMedicine;
-import com.epam.xml.parser.model.medicine.TabletMedicine;
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
+import com.epam.xml.parser.model.LiquidMedicine;
+import com.epam.xml.parser.model.TabletMedicine;
+import com.epam.xml.parser.model.AbstractMedicine;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

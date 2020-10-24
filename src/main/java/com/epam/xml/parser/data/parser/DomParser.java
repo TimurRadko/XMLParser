@@ -1,9 +1,9 @@
 package com.epam.xml.parser.data.parser;
 
 import com.epam.xml.parser.model.Producer;
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
-import com.epam.xml.parser.model.medicine.LiquidMedicine;
-import com.epam.xml.parser.model.medicine.TabletMedicine;
+import com.epam.xml.parser.model.AbstractMedicine;
+import com.epam.xml.parser.model.LiquidMedicine;
+import com.epam.xml.parser.model.TabletMedicine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;

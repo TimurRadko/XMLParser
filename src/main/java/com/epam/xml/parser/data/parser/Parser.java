@@ -1,6 +1,6 @@
 package com.epam.xml.parser.data.parser;
 
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
+import com.epam.xml.parser.model.AbstractMedicine;
 
 import java.util.List;
 

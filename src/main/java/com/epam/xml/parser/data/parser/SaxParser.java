@@ -1,6 +1,6 @@
 package com.epam.xml.parser.data.parser;
 
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
+import com.epam.xml.parser.model.AbstractMedicine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.XMLReader;

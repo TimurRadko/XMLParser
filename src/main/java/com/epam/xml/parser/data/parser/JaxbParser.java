@@ -1,7 +1,7 @@
 package com.epam.xml.parser.data.parser;
 
+import com.epam.xml.parser.model.AbstractMedicine;
 import com.epam.xml.parser.model.Medicines;
-import com.epam.xml.parser.model.medicine.AbstractMedicine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -32,7 +32,7 @@ public class JaxbParser implements Parser {
             Schema schema = factory.newSchema(schemaLocation);
             unmarshaller.setSchema(schema);
             Medicines medicines = (Medicines) unmarshaller.unmarshal(new File(fileName));
-            System.out.println(medicines);
+            listMedicines = medicines.getMedicines();
         } catch (JAXBException e) {
             LOGGER.warn(String.format("JAXB Parser failed with cause %s", e));
         } catch (SAXException e) {
