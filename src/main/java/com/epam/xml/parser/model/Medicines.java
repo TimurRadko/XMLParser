@@ -4,6 +4,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -19,7 +20,7 @@ public class Medicines {
         return getMedicineFromJAXBElement();
     }
 
-    public void setListMedicines(List<AbstractMedicine> medicines) {
+    public void setMedicines(List<AbstractMedicine> medicines) {
         ObjectFactory factory = new ObjectFactory();
         for (AbstractMedicine value : medicines) {
             JAXBElement<? extends AbstractMedicine> volume = factory.createMedicine(value);
@@ -42,6 +43,25 @@ public class Medicines {
             medicines.add(medicine);
         }
         return medicines;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Medicines medicines = (Medicines) o;
+
+        return Objects.equals(medicine, medicines.medicine);
+    }
+
+    @Override
+    public int hashCode() {
+        return medicine != null ? medicine.hashCode() : 0;
     }
 
     @Override

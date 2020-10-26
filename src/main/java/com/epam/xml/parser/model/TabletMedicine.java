@@ -1,7 +1,7 @@
 package com.epam.xml.parser.model;
 
 import javax.xml.bind.annotation.*;
-import java.math.BigInteger;
+import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TabletMedicine", propOrder = {
@@ -36,6 +36,34 @@ public class TabletMedicine
 
     public void setConcentration(String value) {
         this.concentration = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        TabletMedicine that = (TabletMedicine) o;
+
+        if (quantity != that.quantity) {
+            return false;
+        }
+        return Objects.equals(concentration, that.concentration);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + quantity;
+        result = 31 * result + (concentration != null ? concentration.hashCode() : 0);
+        return result;
     }
 
     @Override

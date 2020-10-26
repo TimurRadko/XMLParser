@@ -4,7 +4,6 @@ import com.epam.xml.parser.model.LiquidMedicine;
 import com.epam.xml.parser.model.TabletMedicine;
 import com.epam.xml.parser.model.AbstractMedicine;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class MedicineHandler extends DefaultHandler {
             Arrays.asList(NAME, LICENSE_NUMBER, QUANTITY, WEIGHT, ALCOHOL_CONCENTRATION, PRODUCER_NAME);
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (isMedicineTag(localName)) {
             current = create(localName);
             current.setGroupPharmacy(attributes.getValue(GROUP_PHARMACY));
@@ -62,14 +61,14 @@ public class MedicineHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (isMedicineTag(localName)) {
             medicines.add(current);
         }
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String s = new String(ch, start, length).intern().trim();
         TabletMedicine tabletMedicine;
         LiquidMedicine liquidMedicine;

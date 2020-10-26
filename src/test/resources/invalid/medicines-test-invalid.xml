@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medicines xmlns="http://com.epam.xml.parser.data/medicines">
+
+    <tablet group-pharmacy="painkiller" concentration="low">
+        <name>Aspirin</name>
+        <producer>
+            <producer-name>Bayer</producer-name>
+            <license-number>ID1</license-number>
+        </producer>
+        <quantity>100</quantity>
+    <tablet>
+
+    <liquid group-pharmacy="vitamin">
+        <name>Valerian Root</name>
+        <producer>
+            <producer-name>BelMedications</producer-name>
+            <license-number>ID3</license-number>
+        </producer>
+        <weight>55</weight>
+        <alcohol-concentration>33</alcohol-concentration>
+    </liquid>
+
+</medicines>
