@@ -13,7 +13,7 @@ public class LogAppenderResource extends ExternalResource {
     private static final String APPENDER_NAME = "log4jRuleAppender";
     private static final String PATTERN = "%-5level %msg";
 
-    private final Logger logger;
+    private Logger logger;
     private Appender appender;
     private final CharArrayWriter outContent = new CharArrayWriter();
 

@@ -20,7 +20,6 @@ public class DomParserTest {
     private static final String INVALID_FILE_NAME = "src/test/resources/valid/medicines1.xml";
     private static final int EXPECTED_SIZE = 2;
     private TabletMedicine expectedMedicine;
-    private PrepareEntityToParser prepareEntityToParser;
     private static final String EXPECTED_MESSAGE_FATAL = "FATAL File not found.";
     private static final String EXPECTED_MESSAGE_WARN =
             "WARN  SAX Parser failed with cause org.xml.sax.SAXParseException; systemId: " +
@@ -31,7 +30,7 @@ public class DomParserTest {
 
     @Before
     public void createValidEntity() {
-        prepareEntityToParser = new PrepareEntityToParser();
+        PrepareEntityToParser prepareEntityToParser = new PrepareEntityToParser();
         expectedMedicine = prepareEntityToParser.getMedicine();
     }
 

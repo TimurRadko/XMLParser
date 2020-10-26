@@ -14,7 +14,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class JaxParserTest {
+public class SaxParserTest {
     private static final String FILE_NAME = "src/test/resources/valid/medicines-test.xml";
     private static final String INVALID_FILE_NAME = "src/test/resources/valid/medicines1.xml";
     private static final String INVALID_DATA_FILE = "src/test/resources/invalid/medicines-test-invalid.xml";
