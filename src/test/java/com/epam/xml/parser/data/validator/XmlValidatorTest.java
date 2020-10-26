@@ -15,9 +15,7 @@ public class XmlValidatorTest {
     private static final String INVALID_SCHEMA_NAME = "src/test/resources/invalid/medicines-test.xsd";
     private static final String EXPECTED_MESSAGE_INFO = "INFO  src/test/resources/valid/medicines-test.xml validating is ended.";
     private static final String EXPECTED_MESSAGE_FATAL =
-            "FATAL src/test/resources/invalid/invalid.xml is not valid because " +
-                    "E:\\Programming\\TestingFolder\\Epam\\XMLParser\\src\\test\\resources\\invalid\\invalid.xml " +
-                    "(Не удается найти указанный файл)";
+            "FATAL src/test/resources/invalid/invalid.xml is not valid because E:\\Programming\\TestingFolder\\Epam\\XMLParser\\src\\test\\resources\\invalid\\invalid.xml (Не удается найти указанный файл)";
     private static final String EXPECTED_MESSAGE_SCHEMA_FAIL = "FATAL src/test/resources/invalid/invalid.xml " +
             "is not valid because schema_reference.4: Failed to read schema document " +
             "'file:/E:/Programming/TestingFolder/Epam/XMLParser/src/test/resources/invalid/medicines-test.xsd', " +
