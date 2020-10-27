@@ -1,7 +1,7 @@
 package com.epam.xml.parser.data.factory;
 
-import com.epam.xml.parser.data.parser.Parser;
+import com.epam.xml.parser.data.parser.AbstractParser;
 
 public interface ParserFactory {
-    Parser create(ParserType type);
+    AbstractParser create(ParserType type);
 }

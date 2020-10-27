@@ -1,48 +1,35 @@
 package com.epam.xml.parser.model;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "medicine"
-})
-@XmlRootElement(name = "medicines")
+@XmlRootElement(name = "medicines", namespace = "http://com.epam.xml.parser.data/medicines")
 public class Medicines {
 
-    @XmlElementRef(name = "medicine", namespace = "http://com.epam.xml.parser.data/medicines", type = JAXBElement.class)
-    private List<JAXBElement<? extends AbstractMedicine>> medicine;
+    @XmlElements({@XmlElement(name = "medicine", namespace = "http://com.epam.xml.parser.data/medicines",
+            type = AbstractMedicine.class),
+            @XmlElement(name = "tablet", namespace = "http://com.epam.xml.parser.data/medicines",
+                    type = TabletMedicine.class),
+            @XmlElement(name = "liquid", namespace = "http://com.epam.xml.parser.data/medicines",
+                    type = LiquidMedicine.class),})
+    private List<AbstractMedicine> medicines = new ArrayList<>();
 
+    public Medicines() {
+    }
+
+    @XmlTransient
     public List<AbstractMedicine> getMedicines() {
-        return getMedicineFromJAXBElement();
+        return medicines;
     }
 
     public void setMedicines(List<AbstractMedicine> medicines) {
-        ObjectFactory factory = new ObjectFactory();
-        for (AbstractMedicine value : medicines) {
-            JAXBElement<? extends AbstractMedicine> volume = factory.createMedicine(value);
-            medicine = getMedicine();
-            medicine.add(volume);
-        }
+        this.medicines = medicines;
     }
 
-    private List<JAXBElement<? extends AbstractMedicine>> getMedicine() {
-        if (medicine == null) {
-            medicine = new ArrayList<>();
-        }
-        return this.medicine;
-    }
-
-    private List<AbstractMedicine> getMedicineFromJAXBElement() {
-        List<AbstractMedicine> medicines = new ArrayList<>();
-        for (JAXBElement<? extends AbstractMedicine> volume : medicine) {
-            AbstractMedicine medicine = volume.getValue();
-            medicines.add(medicine);
-        }
-        return medicines;
+    public void addDevice(AbstractMedicine medicine) {
+        medicines.add(medicine);
     }
 
     @Override
@@ -54,18 +41,18 @@ public class Medicines {
             return false;
         }
 
-        Medicines medicines = (Medicines) o;
+        Medicines medicines1 = (Medicines) o;
 
-        return Objects.equals(medicine, medicines.medicine);
+        return Objects.equals(medicines, medicines1.medicines);
     }
 
     @Override
     public int hashCode() {
-        return medicine != null ? medicine.hashCode() : 0;
+        return medicines != null ? medicines.hashCode() : 0;
     }
 
     @Override
     public String toString() {
-        return getMedicineFromJAXBElement().toString();
+        return medicines.toString();
     }
 }

@@ -15,19 +15,28 @@ import java.io.IOException;
 
 public class XmlValidator {
     private final static Logger LOGGER = LogManager.getLogger(XmlValidator.class);
+    private final String schemaName;
 
-    public void validate(String fileName, String schemaName) {
+    public XmlValidator(String schemaName) {
+        this.schemaName = schemaName;
+    }
+
+    public boolean validate(String fileName) {
         String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
         SchemaFactory factory = SchemaFactory.newInstance(language);
         File schemaLocation = new File(schemaName);
+        boolean isValid;
         try {
             Schema schema = factory.newSchema(schemaLocation);
             Validator validator = schema.newValidator();
             Source source = new StreamSource(fileName);
             validator.validate(source);
             LOGGER.info(String.format("%s validating is ended.", fileName));
+            isValid = true;
         } catch (IOException | SAXException e) {
-            LOGGER.fatal(String.format("%s is not valid because %s%n", fileName, e.getMessage()));
+            LOGGER.error(String.format("%s is not valid because %s%n", fileName, e.getMessage()));
+            isValid = false;
         }
+        return isValid;
     }
 }

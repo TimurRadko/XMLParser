@@ -6,18 +6,23 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Producer", propOrder = {
-        "producerName",
-        "licenseNumber"
-})
+@XmlType(name = "Producer")
 public class Producer {
 
-    @XmlElement(name = "producer-name", required = true)
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", name = "producer-name", required = true)
     protected String producerName;
-    @XmlElement(name = "license-number", required = true)
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", name = "license-number", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     protected String licenseNumber;
+
+    public Producer() {
+    }
+
+    public Producer(String producerName, String licenseNumber) {
+        this.producerName = producerName;
+        this.licenseNumber = licenseNumber;
+    }
 
     public String getProducerName() {
         return producerName;

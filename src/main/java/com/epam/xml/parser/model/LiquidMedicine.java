@@ -3,19 +3,23 @@ package com.epam.xml.parser.model;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "LiquidMedicine", propOrder = {
-        "weight",
-        "alcoholConcentration"
-})
-public class LiquidMedicine
-        extends AbstractMedicine
-{
+@XmlType(name = "LiquidMedicine")
+public class LiquidMedicine extends AbstractMedicine {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", required = true)
     @XmlSchemaType(name = "positiveInteger")
     private int weight;
-    @XmlElement(name = "alcohol-concentration")
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", name = "alcohol-concentration")
     private int alcoholConcentration;
+
+    public LiquidMedicine() {
+    }
+
+    public LiquidMedicine(String name, Producer producer, String groupPharmacy, int weight, int alcoholConcentration) {
+        super(name, producer, groupPharmacy);
+        this.weight = weight;
+        this.alcoholConcentration = alcoholConcentration;
+    }
 
     public int getWeight() {
         return weight;

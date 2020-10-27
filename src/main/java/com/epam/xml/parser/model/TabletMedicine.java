@@ -4,23 +4,34 @@ import javax.xml.bind.annotation.*;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TabletMedicine", propOrder = {
-        "quantity"
-})
+@XmlType(name = "TabletMedicine")
 public class TabletMedicine
         extends AbstractMedicine
 {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", required = true)
     @XmlSchemaType(name = "positiveInteger")
     protected int quantity;
     @XmlAttribute(name = "concentration")
     protected String concentration;
 
+    public TabletMedicine() {
+    }
+
+    public TabletMedicine(int quantity, String concentration) {
+        this.quantity = quantity;
+        this.concentration = concentration;
+    }
+
+    public TabletMedicine(String name, Producer producer, String groupPharmacy, int quantity, String concentration) {
+        super(name, producer, groupPharmacy);
+        this.quantity = quantity;
+        this.concentration = concentration;
+    }
+
     public int getQuantity() {
         return quantity;
     }
-
 
     public void setQuantity(int value) {
         this.quantity = value;

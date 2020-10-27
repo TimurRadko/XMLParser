@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <medicines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns="http://com.epam.xml.parser.data/medicines"
-           xsi:schemaLocation="http://com.epam.xml.parser.data/medicines medicines-test.xsd">
+           xsi:schemaLocation="http://com.epam.xml.parser.data/medicines medicines.xsd">
 
     <tablet group-pharmacy="painkiller" concentration="low">
         <name>Aspirin</name>
@@ -10,6 +10,15 @@
             <license-number>ID1</license-number>
         </producer>
         <quantity>100</quantity>
+    </tablet>
+
+    <tablet group-pharmacy="vitamin" concentration="high">
+        <name>Activated Carbon</name>
+        <producer>
+            <producer-name>BelMedications</producer-name>
+            <license-number>ID2</license-number>
+        </producer>
+        <quantity>50</quantity>
     </tablet>
 
     <liquid group-pharmacy="vitamin">

@@ -4,22 +4,28 @@ import javax.xml.bind.annotation.*;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AbstractMedicine", propOrder = {
-        "name",
-        "producer"
-})
+@XmlType(name = "AbstractMedicine")
 @XmlSeeAlso({
         TabletMedicine.class,
         LiquidMedicine.class
 })
 public class AbstractMedicine {
 
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", required = true)
     private String name;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://com.epam.xml.parser.data/medicines", required = true)
     private Producer producer = new Producer();
     @XmlAttribute(name = "group-pharmacy", required = true)
     private String groupPharmacy;
+
+    public AbstractMedicine() {
+    }
+
+    public AbstractMedicine(String name, Producer producer, String groupPharmacy) {
+        this.name = name;
+        this.producer = producer;
+        this.groupPharmacy = groupPharmacy;
+    }
 
     public String getName() {
         return name;

@@ -1,13 +1,13 @@
 package com.epam.xml.parser.data.factory;
 
-import com.epam.xml.parser.data.parser.DomParser;
-import com.epam.xml.parser.data.parser.JaxbParser;
-import com.epam.xml.parser.data.parser.SaxParser;
-import com.epam.xml.parser.data.parser.Parser;
+import com.epam.xml.parser.data.parser.AbstractParser;
+import com.epam.xml.parser.data.parser.dom.DomParser;
+import com.epam.xml.parser.data.parser.jaxb.JaxbParser;
+import com.epam.xml.parser.data.parser.sax.SaxParser;
 
 public class ParserFactoryImpl implements ParserFactory {
 
-    public Parser create(ParserType type) {
+    public AbstractParser create(ParserType type) {
         switch (type) {
             case DOM:
                 return new DomParser();

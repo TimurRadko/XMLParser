@@ -1,11 +1,11 @@
-package com.epam.xml.parser.data.parser;
+package com.epam.xml.parser.data.parser.dom;
 
+import com.epam.xml.parser.data.parser.AbstractParser;
+import com.epam.xml.parser.exception.ParseException;
 import com.epam.xml.parser.model.Producer;
 import com.epam.xml.parser.model.AbstractMedicine;
 import com.epam.xml.parser.model.LiquidMedicine;
 import com.epam.xml.parser.model.TabletMedicine;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,26 +17,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class DomParser implements Parser {
-    private final static Logger LOGGER = LogManager.getLogger(DomParser.class);
-    private static final String TABLET = "tablet";
-    private static final String GROUP_PHARMACY = "group-pharmacy";
-    private static final String CONCENTRATION = "concentration";
-    private static final String PRODUCER = "producer";
-    private static final String PRODUCER_NAME = "producer-name";
-    private static final String LIQUID = "liquid";
-    private static final String NAME = "name";
-    private static final String LICENSE_NUMBER = "license-number";
-    private static final String QUANTITY = "quantity";
-    private static final String WEIGHT = "weight";
-    private static final String ALCOHOL_CONCENTRATION = "alcohol-concentration";
-    private static final List<String> TAG_LIST = Arrays.asList(TABLET, LIQUID);
+public class DomParser extends AbstractParser {
 
     @Override
-    public List<AbstractMedicine> parse(String fileName) {
+    public List<AbstractMedicine> parse(String fileName) throws ParseException {
         List<AbstractMedicine> medicines = new ArrayList<>();
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -47,12 +33,8 @@ public class DomParser implements Parser {
                 NodeList medicinesList = root.getElementsByTagName(value);
                 addMedicineToList(medicines, medicinesList);
             }
-        } catch (ParserConfigurationException e) {
-            LOGGER.warn(String.format("DOM Parser failed with cause %s", e));
-        } catch (SAXException e) {
-            LOGGER.warn(String.format("SAX Parser failed with cause %s", e));
-        } catch (IOException e) {
-            LOGGER.fatal("File not found.");
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            throw new ParseException(e.getMessage(), e);
         }
         return medicines;
     }
@@ -66,7 +48,8 @@ public class DomParser implements Parser {
     }
 
     private AbstractMedicine buildAbstractMedicine(Element medicineElement) {
-        AbstractMedicine current = create(medicineElement);
+        String tagName = medicineElement.getTagName();
+        AbstractMedicine current = create(tagName);
         current.setGroupPharmacy(medicineElement.getAttribute(GROUP_PHARMACY));
         current.setName(getElementTextContent(medicineElement, NAME));
         Producer producer = new Producer();
@@ -100,18 +83,6 @@ public class DomParser implements Parser {
         String quantity = getElementTextContent(medicineElement, QUANTITY);
         tabletMedicine.setConcentration(medicineElement.getAttribute(CONCENTRATION));
         tabletMedicine.setQuantity(Integer.parseInt(quantity));
-    }
-
-    private AbstractMedicine create(Element medicineElement) {
-        String tagName = medicineElement.getTagName();
-        switch (tagName) {
-            case TABLET:
-                return new TabletMedicine();
-            case LIQUID:
-                return new LiquidMedicine();
-            default:
-                throw new IllegalArgumentException("Tag not found");
-        }
     }
 
     private static String getElementTextContent(Element element, String elementName) {
