@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="medicines"
+        xmlns:tns="medicines"
+        elementFormDefault="qualified">
+
+    <element name="medicines">
+        <complexType>
+            <sequence>
+                <element ref="tns:medicine" minOccurs="2" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Medicine">
+        <sequence>
+            <element name="name">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="3"/>
+                        <maxLength value="30"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="producer" type="tns:Producer"/>
+        </sequence>
+        <attribute name="group-pharmacy" use="required">
+            <simpleType>
+                <restriction base="string">
+                    <enumeration value="painkiller"/>
+                    <enumeration value="vitamin"/>
+                    <enumeration value="antibiotic"/>
+                    <enumeration value="antipyretic"/>
+                </restriction>
+            </simpleType>
+        </attribute>
+    </complexType>
+
+    <complexType name="TabletMedicine">
+        <complexContent>
+            <extension base="tns:Medicine">
+                <sequence>
+                    <element name="quantity" type="positiveInteger"/>
+                </sequence>
+                <attribute name="concentration" default="medium">
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="low"/>
+                            <enumeration value="medium"/>
+                            <enumeration value="high"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="LiquidMedicine">
+        <complexContent>
+            <extension base="tns:Medicine">
+                <sequence>
+                    <element name="weight" type="positiveInteger"/>
+                    <element name="alcohol-concentration">
+                        <simpleType>
+                            <restriction base="positiveInteger">
+                                <maxInclusive value="100"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Producer">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="license-number">
+                <simpleType>
+                    <restriction base="ID">
+                        <pattern value="ID\d{1,15}"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <element name="medicine" type="tns:Medicine" abstract="true"/>
+    <element name="tablet" type="tns:TabletMedicine" substitutionGroup="tns:medicine"/>
+    <element name="liquid" type="tns:LiquidMedicine" substitutionGroup="tns:medicine"/>
+</schema>
